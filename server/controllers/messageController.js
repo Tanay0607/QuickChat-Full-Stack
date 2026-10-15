@@ -89,7 +89,16 @@ export const sendMessage = async (req, res) =>{
         res.json({success: true, newMessage});
 
     } catch (error) {
-        console.log(error.message);
-        res.json({success: false, message: error.message})
+    console.error("Send message error:", {
+        message: error.message,
+        http_code: error.http_code,
+        name: error.name,
+        cloudinaryError: error.error
+    });
+
+    return res.status(500).json({
+        success: false,
+        message: "Failed to send message"
+    });
     }
 }
