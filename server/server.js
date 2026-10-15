@@ -51,10 +51,13 @@ app.use("/api/messages", messageRouter)
 
 
 // Connect to MongoDB
-if(process.env.NODE_ENV !== "production"){
-    const PORT = process.env.PORT || 5000;
-    server.listen(PORT, ()=> console.log("Server is running on PORT: " + PORT));
-}
+
+const PORT = process.env.PORT || 5000;
+
+server.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server is running on PORT: ${PORT}`);
+});
+
 
 connectDB().catch((err) => {
     console.error("MongoDB connection failed:", err);
